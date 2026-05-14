@@ -224,17 +224,33 @@ ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 - [x] Repositório GitHub: `JuanOros/lemott`
 - [x] Branches `main` e `develop` configuradas
 - [x] Script de análise Python (`analysis/analyze.py`)
-- [x] Dashboard Next.js com painel de métricas básico (Seção 1 parcial)
-- [x] CLAUDE.md com contexto completo
-- [ ] SDK Anthropic instalado no Python (`pip install anthropic`)
+- [x] Dashboard Next.js com painel de métricas completo (Seção 1)
+- [x] CLAUDE.md com contexto completo (este arquivo)
+- [x] GUIA.md com instruções de uso para o dono
+- [x] SDK Anthropic instalado no Python e no Next.js
+- [x] Mock data realista para testar dashboard sem token
+- [x] Sidebar de navegação entre as 5 seções
+- [x] Seção 2: Estúdio de Criativos (upload mockup → Claude sugere copies)
+- [x] Seção 3: Criador de Campanhas (gera comandos CLI prontos)
+- [x] Seção 4: Organizador de Catálogo (produtos por estampa)
+- [x] Seção 5: Assistente de Decisão (chat com Claude)
+- [x] API routes: `/api/analyze-creative` e `/api/assistant`
+- [x] Build Next.js 100% sem erros
 - [ ] Token de acesso da Meta (usuário do sistema — pendente)
 - [ ] `.env` preenchido com dados reais
-- [ ] Sidebar de navegação entre as 5 seções
-- [ ] Mock data para testar dashboard sem token
-- [ ] Seção 2: Estúdio de Criativos
-- [ ] Seção 3: Criador de Campanhas
-- [ ] Seção 4: Organizador de Catálogo
-- [ ] Seção 5: Assistente de Decisão
+- [ ] Primeiro teste real com `python3.12 analyze.py`
+
+---
+
+## 11. Próximo passo imediato
+
+1. Gerar token na Meta (permissões `ads_management` e `ads_read`)
+2. Copiar `.env.example` → `.env` e preencher
+3. Preencher `dashboard/.env.local` com `ANTHROPIC_API_KEY`
+4. Rodar: `cd analysis && python3.12 analyze.py`
+5. Rodar: `cd dashboard && npm run dev` → acessar http://localhost:3000
+
+O Estúdio de Criativos e o Assistente já funcionam com só a chave Anthropic.
 
 ---
 
