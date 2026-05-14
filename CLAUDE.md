@@ -166,8 +166,9 @@ LEMOTT/
 ACCESS_TOKEN=        # token do usuário do sistema Meta
 AD_ACCOUNT_ID=       # formato act_XXXXXXXXX
 BUSINESS_ID=         # ID do portfólio empresarial Meta
-ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 ```
+
+> Sem necessidade de ANTHROPIC_API_KEY — o Claude Code é usado diretamente no terminal.
 
 ---
 
@@ -179,11 +180,11 @@ ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 - Qual tipo de peça converte mais por estampa
 - Alerta: "essa campanha está queimando dinheiro — pause"
 
-### Seção 2 — Estúdio de Criativos *(em construção)*
-- Upload de mockup (imagem ou vídeo)
-- Claude analisa imagem + histórico de performance
-- Sugere 3 copies prontos alinhados à identidade da marca
-- Publicação direta na Meta via CLI (quando token disponível)
+### Seção 2 — Estúdio de Criativos
+- Preview do mockup no painel
+- Gera prompt pronto para copiar e colar no Claude Code
+- Mockups salvos em `mockups/` (pasta na raiz do projeto)
+- Claude Code analisa diretamente — sem custo de API
 
 ### Seção 3 — Criador de Campanhas Inteligente *(em construção)*
 - Seleção por estampa (não por categoria)
@@ -196,10 +197,10 @@ ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 - Indicação de mockup personalizado vs genérico
 - Gerenciamento de grupos de produtos para campanhas
 
-### Seção 5 — Assistente de Decisão Semanal *(em construção)*
-- Resumo simples: o que escalar, o que pausar, o que testar
-- Sugestão de conceitos de estampa baseados em Copa/cultura brasileira
-- Input livre para pedir ideias de copy ou criativo
+### Seção 5 — Assistente de Decisão
+- Lista de prompts prontos para usar no Claude Code
+- Clicar copia o prompt para a área de transferência
+- O usuário cola direto no terminal do Claude Code — sem API
 
 ---
 
@@ -224,17 +225,32 @@ ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 - [x] Repositório GitHub: `JuanOros/lemott`
 - [x] Branches `main` e `develop` configuradas
 - [x] Script de análise Python (`analysis/analyze.py`)
-- [x] Dashboard Next.js com painel de métricas básico (Seção 1 parcial)
-- [x] CLAUDE.md com contexto completo
-- [ ] SDK Anthropic instalado no Python (`pip install anthropic`)
+- [x] Dashboard Next.js com painel de métricas completo (Seção 1)
+- [x] CLAUDE.md com contexto completo (este arquivo)
+- [x] GUIA.md com instruções de uso para o dono
+- [x] Mock data realista para testar dashboard sem token
+- [x] Sidebar de navegação entre as 5 seções
+- [x] Seção 2: Estúdio de Criativos (preview + prompt para Claude Code)
+- [x] Seção 3: Criador de Campanhas (gera comandos CLI prontos)
+- [x] Seção 4: Organizador de Catálogo (produtos por estampa)
+- [x] Seção 5: Assistente de Decisão (prompts prontos para Claude Code)
+- [x] Pasta `mockups/` para organizar imagens por linha
+- [x] Dashboard 100% gratuito — sem dependência de Anthropic API
+- [x] Build Next.js 100% sem erros
 - [ ] Token de acesso da Meta (usuário do sistema — pendente)
 - [ ] `.env` preenchido com dados reais
-- [ ] Sidebar de navegação entre as 5 seções
-- [ ] Mock data para testar dashboard sem token
-- [ ] Seção 2: Estúdio de Criativos
-- [ ] Seção 3: Criador de Campanhas
-- [ ] Seção 4: Organizador de Catálogo
-- [ ] Seção 5: Assistente de Decisão
+- [ ] Primeiro teste real com `python3.12 analyze.py`
+
+---
+
+## 11. Próximo passo imediato
+
+1. Gerar token na Meta (permissões `ads_management` e `ads_read`)
+2. Copiar `.env.example` → `.env` e preencher com os dados da Meta
+3. Rodar: `cd dashboard && npm run dev` → acessar http://localhost:3000
+4. Rodar: `cd analysis && python3.12 analyze.py` (quando o token estiver pronto)
+
+O Estúdio e o Assistente funcionam agora mesmo — basta usar o Claude Code no terminal.
 
 ---
 

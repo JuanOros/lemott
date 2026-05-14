@@ -3,6 +3,7 @@ import { join } from "path";
 import MetricsGrid from "@/components/MetricsGrid";
 import AnalysisPanel from "@/components/AnalysisPanel";
 import CampaignTable from "@/components/CampaignTable";
+import { mockReport } from "@/lib/mockData";
 
 interface Insight {
   campaign_name?: string;
@@ -13,6 +14,7 @@ interface Insight {
   ctr?: string;
   cpc?: string;
   conversions?: string;
+  roas?: string;
 }
 
 function getReportData() {
@@ -24,77 +26,78 @@ function getReportData() {
 
 export default function Home() {
   const report = getReportData();
+  const usingMock = !report;
 
-  if (!report) {
-    return (
-      <main className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Le Mott — Painel de Anúncios</h1>
-          <p className="text-zinc-400 mb-6">Nenhum relatório encontrado ainda.</p>
-          <code className="bg-zinc-800 px-4 py-2 rounded text-green-400 text-sm">
-            cd analysis && python3.12 analyze.py
-          </code>
-          <p className="text-zinc-500 text-sm mt-4">
-            Rode o script acima para gerar o primeiro relatório.
-          </p>
-        </div>
-      </main>
-    );
-  }
+  const dados = report?.dados ?? mockReport;
+  const analise =
+    report?.analise ??
+    `**Modo demonstração** — dados fictícios para visualização do painel.
 
-  const { dados, analise } = report;
+Quando o token da Meta estiver configurado, este painel mostrará dados reais das suas campanhas.
+
+**O que você verá aqui:**
+- Performance real de cada campanha por estampa
+- Qual tipo de peça (camisa, moletom, cropped) está convertendo mais
+- CTR, ROAS e CPA atualizados dos últimos 7 dias
+- Recomendações concretas de o que escalar ou pausar
+
+**Para ativar:** preencha o arquivo .env com seu ACCESS_TOKEN e AD_ACCOUNT_ID, depois rode:
+cd analysis && python3.12 analyze.py`;
+
   const insights: Insight[] = dados.insights_7_dias || [];
 
-  const totalGasto = insights.reduce(
-    (sum: number, i: Insight) => sum + parseFloat(i.spend || "0"),
-    0
-  );
-  const totalCliques = insights.reduce(
-    (sum: number, i: Insight) => sum + parseInt(i.clicks || "0"),
-    0
-  );
-  const totalImpressoes = insights.reduce(
-    (sum: number, i: Insight) => sum + parseInt(i.impressions || "0"),
-    0
-  );
-  const ctrMedio =
-    totalImpressoes > 0
-      ? ((totalCliques / totalImpressoes) * 100).toFixed(2)
+  const totalGasto = insights.reduce((sum, i) => sum + parseFloat(i.spend || "0"), 0);
+  const totalCliques = insights.reduce((sum, i) => sum + parseInt(i.clicks || "0"), 0);
+  const totalImpressoes = insights.reduce((sum, i) => sum + parseInt(i.impressions || "0"), 0);
+  const totalConversoes = insights.reduce((sum, i) => sum + parseInt(i.conversions || "0"), 0);
+  const ctrMedio = totalImpressoes > 0 ? ((totalCliques / totalImpressoes) * 100).toFixed(2) : "0";
+  const roasMedio =
+    insights.filter((i) => parseFloat(i.roas || "0") > 0).length > 0
+      ? (
+          insights.reduce((sum, i) => sum + parseFloat(i.roas || "0"), 0) /
+          insights.filter((i) => parseFloat(i.roas || "0") > 0).length
+        ).toFixed(2)
       : "0";
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Le Mott</h1>
-          <p className="text-zinc-400 mt-1">
-            Painel de performance · Últimos 7 dias ·{" "}
-            <span className="text-zinc-500 text-sm">
-              Atualizado em{" "}
-              {new Date(dados.coletado_em).toLocaleString("pt-BR")}
-            </span>
+    <div className="max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Painel de Performance</h2>
+          <p className="text-zinc-400 text-sm mt-1">
+            Últimos 7 dias ·{" "}
+            {usingMock ? (
+              <span className="text-yellow-400">modo demonstração</span>
+            ) : (
+              <span className="text-green-400">
+                Atualizado em {new Date(dados.coletado_em).toLocaleString("pt-BR")}
+              </span>
+            )}
           </p>
         </div>
-
-        {/* Métricas principais */}
-        <MetricsGrid
-          gasto={totalGasto}
-          cliques={totalCliques}
-          impressoes={totalImpressoes}
-          ctr={ctrMedio}
-          campanhas={dados.campanhas?.length || 0}
-          anuncios={dados.anuncios?.length || 0}
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-          {/* Análise do Claude */}
-          <AnalysisPanel analise={analise} />
-
-          {/* Tabela de campanhas */}
-          <CampaignTable insights={insights} />
-        </div>
+        {usingMock && (
+          <div className="bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-xs px-3 py-1.5 rounded-lg">
+            Configure o .env para dados reais
+          </div>
+        )}
       </div>
-    </main>
+
+      {/* Métricas */}
+      <MetricsGrid
+        gasto={totalGasto}
+        cliques={totalCliques}
+        impressoes={totalImpressoes}
+        ctr={ctrMedio}
+        conversoes={totalConversoes}
+        roas={roasMedio}
+        campanhas={dados.campanhas?.length || 0}
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <AnalysisPanel analise={analise} />
+        <CampaignTable insights={insights} />
+      </div>
+    </div>
   );
 }
