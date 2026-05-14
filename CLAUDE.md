@@ -3,6 +3,8 @@
 Este arquivo é lido automaticamente pelo Claude Code a cada sessão.
 Contém tudo que é necessário para continuar o desenvolvimento sem perder contexto.
 
+> **Regra obrigatória:** a cada alteração de código, atualizar este arquivo se necessário — status, arquitetura, decisões tomadas.
+
 ---
 
 ## 1. Quem é o dono
@@ -21,22 +23,34 @@ Tem suporte esporádico do irmão (nível intermediário).
 
 ## 2. A marca — Le Mott
 
-Loja de camisetas e produtos com forte identidade cultural, emocional e visual.
+**Instagram:** [@lemott.co](https://www.instagram.com/lemott.co/)
+**Loja:** [lemott.com.br/lemott](https://www.lemott.com.br/lemott)
+**Suporte ao cliente:** WhatsApp pessoal do Juan
 
-**Foco:** Copa do Mundo, futebol, cultura brasileira, frases de torcida, humor cotidiano.
+### Identidade e origem da marca
 
-**Proposta:** não é só camisa de futebol — é identificação, nostalgia, resenha, personalidade e cultura popular.
+> "Inspirada na escrita e na elegância francesa, a Lemott nasceu para traduzir sentimentos em forma de roupa.
+> Cada peça carrega o encanto de palavras que são utilizadas no vocabulário de nossas culturas.
+> Mais do que vestir, é um convite a viver com aquilo que nos identificamos e fazemos parte.
+> Entre o traço da pena e o som das palavras, a Lemott celebra a arte de expressar-se.
+> **Lemott — feita de alma, feita de mots.**"
 
-**Identidade visual:**
-- Minimalismo
+**Origem do nome:** "Le" (artigo francês) + "mots" (francês para "palavras"). A marca é sobre **traduzir sentimentos e cultura em forma de roupa através das palavras**.
+
+**Identidade central:** expressão, identificação cultural, palavras que representam quem somos.
+
+**O futebol/Copa é uma linha de produto** — não a identidade central. A marca pode e deve crescer para outras expressões culturais.
+
+### Identidade visual
+- Minimalismo com alma
 - Humor brasileiro
 - Estética de bar, rua, futebol raiz
 - Churrasco, sofá vendo jogo, torcida
 - Animais e elementos brasileiros (orelhão, churrasqueira, chinelo, vuvuzela, futebol de rua)
-- Referências culturais sutis, memes e frases populares ligadas ao futebol
+- Referências culturais sutis, memes e frases populares
 
-**Linhas de produto:**
-- Copa do Mundo
+### Linhas de produto
+- Copa do Mundo *(foco atual de anúncios)*
 - Brasil / identidade brasileira
 - Frases de torcida
 - Humor cotidiano
@@ -44,7 +58,8 @@ Loja de camisetas e produtos com forte identidade cultural, emocional e visual.
 - Animais em contexto futebolístico
 - Lifestyle de assistir jogo com amigos
 
-**Tom de comunicação:** descontraído, emocional, próximo, simples — conversa entre amigos, sem aparência corporativa.
+### Tom de comunicação
+Descontraído, emocional, próximo, simples — conversa entre amigos, sem aparência corporativa. Quando a linha é mais poética (francesa), o tom acompanha: elegante mas acessível.
 
 ---
 
@@ -59,19 +74,19 @@ Loja de camisetas e produtos com forte identidade cultural, emocional e visual.
 2. Aplica numa camiseta, varia cores baseado na cor da roupa
 3. Coloca em 1 ou mais categorias
 4. **Clona** a mesma estampa para todos os outros produtos: moletom, cropped, body infantil, etc.
-5. Isso gera um volume grande de produtos por estampa — é intencional
+5. Isso gera um volume grande de produtos por estampa — é intencional e não vai mudar
 
-**Base estratégica:** A camisa é o produto principal. Os outros produtos são derivados.
+**Base estratégica:** A camisa é o produto principal — é nela que faz mockups personalizados. Os outros produtos são derivados.
 
-**Mockups:** A plataforma oferece mockups prontos. Mockups próprios têm mais valor — para alguns produtos ele cria os seus. Mockups personalizados têm prioridade nos anúncios.
+**Mockups:** A plataforma oferece mockups prontos. Mockups próprios têm mais valor — para alguns produtos ele cria os seus. **Mockups personalizados têm prioridade nos anúncios.**
 
 ---
 
 ## 4. Fluxo atual de anúncios
 
-1. Catálogo de produtos está conectado ao Meta via API/tokens
+1. Catálogo conectado ao Meta via API/tokens (já integrado)
 2. Seleciona uma categoria de produtos para anunciar (entra tudo: camisa, moletom, body infantil da mesma estampa)
-3. Cria campanha com 3 níveis: campanha → conjunto de anúncios → anúncio
+3. Cria campanha: campanha → conjunto de anúncios → anúncio
 4. Configurações básicas, começa com **R$ 10/dia**
 5. Público frio, sem filtros — deixa o Meta otimizar
 6. Também impulsa posts no Instagram profissional como estratégia de tráfego
@@ -88,9 +103,9 @@ Loja de camisetas e produtos com forte identidade cultural, emocional e visual.
 
 1. **Organização por estampa vs produto:** faz sentido mostrar todos os produtos de uma estampa no mesmo anúncio? Ou melhor mostrar diferentes estampas na mesma categoria de produto?
 
-2. **Qual item converte:** dentro de uma campanha de categoria, não sabe se é a camisa, o moletom ou o body que está vendendo mais.
+2. **Qual item converte:** dentro de uma campanha de categoria, não sabe se é a camisa, o moletom ou o body que está vendendo.
 
-3. **Segmentação:** público amplo (inclui infantil e adulto, masculino e feminino). É a melhor estratégia ou deveria segmentar por linha?
+3. **Segmentação:** público muito amplo (inclui infantil e adulto, masculino e feminino). É a melhor estratégia ou deveria segmentar?
 
 4. **Quando escalar:** não tem critério claro. O sistema deve dar esse gatilho com base nos dados.
 
@@ -103,10 +118,10 @@ Conectar Claude ao ecossistema de anúncios da Meta para atuar como **diretor cr
 **Poderes do sistema:**
 - Analisar performance de campanhas por estampa
 - Identificar qual tipo de peça converte melhor
-- Sugerir copies baseados no histórico de o que converte
+- Sugerir copies baseados no histórico + identidade da marca
+- Upload de mockup → Claude analisa → sugere copy → publica na Meta
 - Criar campanhas, conjuntos, criativos e anúncios via Meta Ads CLI
 - Gerenciar catálogo e grupos de produtos
-- Upload de mockups (imagem ou vídeo) → Claude sugere copy → publica na Meta
 - Decidir quando escalar ou pausar em linguagem simples
 
 ---
@@ -115,72 +130,80 @@ Conectar Claude ao ecossistema de anúncios da Meta para atuar como **diretor cr
 
 ```
 LEMOTT/
-├── CLAUDE.md                  ← este arquivo (memória do projeto)
-├── .env.example               ← variáveis necessárias (não commitar .env)
+├── CLAUDE.md                        ← memória permanente (atualizar sempre)
+├── .env.example                     ← variáveis necessárias (não commitar .env)
 ├── .gitignore
 ├── analysis/
-│   ├── analyze.py             ← script Python: puxa dados Meta + analisa com Claude
-│   └── reports/               ← relatórios gerados (latest.json lido pelo dashboard)
-└── dashboard/                 ← Next.js (TypeScript + Tailwind)
+│   ├── analyze.py                   ← puxa dados Meta CLI + analisa com Claude
+│   └── reports/                     ← relatórios gerados (latest.json → dashboard)
+└── dashboard/                       ← Next.js (TypeScript + Tailwind)
     ├── app/
-    │   └── page.tsx           ← página principal do painel
+    │   ├── page.tsx                 ← Seção 1: Painel de Performance
+    │   ├── studio/page.tsx          ← Seção 2: Estúdio de Criativos
+    │   ├── campaigns/page.tsx       ← Seção 3: Criador de Campanhas
+    │   ├── catalog/page.tsx         ← Seção 4: Organizador de Catálogo
+    │   ├── assistant/page.tsx       ← Seção 5: Assistente de Decisão
+    │   ├── layout.tsx               ← layout com sidebar de navegação
+    │   └── api/
+    │       ├── analyze-creative/    ← Claude analisa imagem e sugere copies
+    │       └── create-campaign/     ← chama Meta CLI para criar campanha
     └── components/
-        ├── MetricsGrid.tsx    ← métricas ROAS, CPA, CTR, conversão
-        ├── AnalysisPanel.tsx  ← análise gerada pelo Claude
-        └── CampaignTable.tsx  ← tabela de campanhas ordenada por gasto
+        ├── Sidebar.tsx              ← navegação entre as 5 seções
+        ├── MetricsGrid.tsx          ← métricas principais
+        ├── AnalysisPanel.tsx        ← análise do Claude
+        └── CampaignTable.tsx        ← tabela de campanhas
 ```
 
 **Stack técnica:**
 - Python 3.12 — scripts de análise e integração com Meta Ads CLI
 - Next.js (TypeScript) + Tailwind — dashboard visual
 - Meta Ads CLI (`meta ads`) — interface com a API de Marketing da Meta
-- Anthropic SDK (Claude) — análise inteligente dos dados
-- Reserva Ink API — catálogo de produtos (a ser integrado)
+- Anthropic SDK Python + Next.js — análise e sugestões inteligentes
+- Reserva Ink (POD) — plataforma de produtos
 
-**Variáveis de ambiente necessárias (.env):**
+**Variáveis de ambiente (.env):**
 ```
 ACCESS_TOKEN=        # token do usuário do sistema Meta
 AD_ACCOUNT_ID=       # formato act_XXXXXXXXX
 BUSINESS_ID=         # ID do portfólio empresarial Meta
-ANTHROPIC_API_KEY=   # chave da API do Claude
+ANTHROPIC_API_KEY=   # chave da API do Claude (Anthropic Console)
 ```
 
 ---
 
-## 8. Visão completa — 5 seções a construir
+## 8. Visão completa — 5 seções
 
-### Seção 1 — Painel de Performance *(iniciado)*
-- Métricas gerais: ROAS, CPA, CTR, conversão, gasto
+### Seção 1 — Painel de Performance *(em construção)*
+- Métricas: ROAS, CPA, CTR, conversão, gasto total
 - Performance agrupada por estampa
 - Qual tipo de peça converte mais por estampa
 - Alerta: "essa campanha está queimando dinheiro — pause"
 
-### Seção 2 — Estúdio de Criativos *(a construir)*
+### Seção 2 — Estúdio de Criativos *(em construção)*
 - Upload de mockup (imagem ou vídeo)
-- Claude analisa a imagem + histórico de performance
-- Sugere 3 copies prontos
-- Publicação direta na Meta via CLI
+- Claude analisa imagem + histórico de performance
+- Sugere 3 copies prontos alinhados à identidade da marca
+- Publicação direta na Meta via CLI (quando token disponível)
 
-### Seção 3 — Criador de Campanhas Inteligente *(a construir)*
+### Seção 3 — Criador de Campanhas Inteligente *(em construção)*
 - Seleção por estampa (não por categoria)
-- Montagem automática do grupo de produtos
 - Recomendação: "mostre só camisas" ou "mostre tudo"
-- Criação de campanha + conjunto + anúncio com um clique
+- Gera comandos CLI para criar campanha + conjunto + anúncio
 - Padrão: R$ 10/dia, público frio
 
-### Seção 4 — Organizador de Catálogo *(a construir)*
-- Visualização de produtos agrupados por estampa
-- Indicação de quais têm mockup personalizado vs genérico
+### Seção 4 — Organizador de Catálogo *(em construção)*
+- Produtos agrupados por estampa
+- Indicação de mockup personalizado vs genérico
 - Gerenciamento de grupos de produtos para campanhas
 
-### Seção 5 — Assistente de Decisão Semanal *(a construir)*
-- Lê os dados toda semana
-- Entrega resumo simples: o que escalar, o que pausar, o que testar
-- Sugere conceitos de estampa baseados em Copa/cultura brasileira
+### Seção 5 — Assistente de Decisão Semanal *(em construção)*
+- Resumo simples: o que escalar, o que pausar, o que testar
+- Sugestão de conceitos de estampa baseados em Copa/cultura brasileira
+- Input livre para pedir ideias de copy ou criativo
 
 ---
 
-## 9. Boas práticas de Git (obrigatório)
+## 9. Boas práticas de Git (obrigatório em toda sessão)
 
 - **Nunca** commitar direto na `main`
 - Branch padrão de trabalho: `develop`
@@ -188,34 +211,30 @@ ANTHROPIC_API_KEY=   # chave da API do Claude
 - Branches de correção: `fix/nome-do-bug`
 - Branches de configuração: `chore/nome-da-tarefa`
 - Ao terminar: PR de `feature/xxx` → `develop`
-- `main` só recebe merge de `develop` quando algo está estável e testado
+- `main` só recebe merge de `develop` quando algo está estável
 - Conventional commits: `feat:`, `fix:`, `chore:`, `docs:`
+- **Atualizar este CLAUDE.md** se a arquitetura ou status mudarem
 
 ---
 
 ## 10. Status atual do projeto
 
-- [x] Meta Ads CLI instalada e funcionando
-- [x] Repositório GitHub criado: `JuanOros/lemott`
+- [x] Meta Ads CLI instalada e funcionando (`meta ads --help`)
+- [x] Python 3.12 instalado
+- [x] Repositório GitHub: `JuanOros/lemott`
 - [x] Branches `main` e `develop` configuradas
 - [x] Script de análise Python (`analysis/analyze.py`)
-- [x] Dashboard Next.js com painel de métricas básico
-- [ ] Token de acesso da Meta (em andamento — usuário do sistema pendente)
-- [ ] Integração .env com dados reais
+- [x] Dashboard Next.js com painel de métricas básico (Seção 1 parcial)
+- [x] CLAUDE.md com contexto completo
+- [ ] SDK Anthropic instalado no Python (`pip install anthropic`)
+- [ ] Token de acesso da Meta (usuário do sistema — pendente)
+- [ ] `.env` preenchido com dados reais
+- [ ] Sidebar de navegação entre as 5 seções
+- [ ] Mock data para testar dashboard sem token
 - [ ] Seção 2: Estúdio de Criativos
-- [ ] Seção 3: Criador de Campanhas Inteligente
+- [ ] Seção 3: Criador de Campanhas
 - [ ] Seção 4: Organizador de Catálogo
-- [ ] Seção 5: Assistente de Decisão Semanal
-
----
-
-## 11. Próximo passo imediato
-
-Configurar o token de acesso da Meta:
-1. Criar app no portfólio Meta Business (feito)
-2. Gerar token com permissões `ads_management` e `ads_read`
-3. Copiar `.env.example` para `.env` e preencher
-4. Rodar `cd analysis && python3.12 analyze.py` para testar
+- [ ] Seção 5: Assistente de Decisão
 
 ---
 
