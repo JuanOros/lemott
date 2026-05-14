@@ -3,18 +3,13 @@
 import { useState, useRef } from "react";
 
 export default function StudioPage() {
-  const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [stampName, setStampName] = useState("");
   const [productType, setProductType] = useState("camiseta");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleFile(file: File) {
-    setImage(file);
     setPreview(URL.createObjectURL(file));
-    setResult("");
   }
 
   function handleDrop(e: React.DragEvent) {
@@ -23,40 +18,21 @@ export default function StudioPage() {
     if (file && file.type.startsWith("image/")) handleFile(file);
   }
 
-  async function handleAnalyze() {
-    if (!image) return;
-    setLoading(true);
-    setResult("");
-
-    const form = new FormData();
-    form.append("image", image);
-    form.append("stampName", stampName);
-    form.append("productType", productType);
-
-    try {
-      const res = await fetch("/api/analyze-creative", { method: "POST", body: form });
-      const data = await res.json();
-      setResult(data.result || data.error || "Erro inesperado.");
-    } catch {
-      setResult("Erro ao conectar com o servidor.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const linhas = result.split("\n");
+  const instrucao = stampName
+    ? `Analise este mockup da estampa "${stampName}" (${productType}) da Le Mott. Sugira 3 copies prontos para anunciar no Meta, o público ideal e o melhor formato (imagem ou carrossel). Considere a identidade da marca: humor brasileiro, futebol, cultura latina, tom descontraído.`
+    : `Analise este mockup (${productType}) da Le Mott. Sugira 3 copies prontos para anunciar no Meta, o público ideal e o melhor formato de anuncio.`;
 
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold">Estúdio de Criativos</h2>
+        <h2 className="text-2xl font-bold">Estudio de Criativos</h2>
         <p className="text-zinc-400 text-sm mt-1">
-          Envie o mockup → Claude analisa e sugere 3 copies prontos para anunciar
+          Visualize o mockup e gere copies diretamente no Claude Code — sem custo extra
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Upload */}
+        {/* Upload para preview */}
         <div className="flex flex-col gap-4">
           <div
             className="border-2 border-dashed border-zinc-700 rounded-xl p-8 text-center cursor-pointer hover:border-zinc-500 transition-colors relative"
@@ -69,7 +45,7 @@ export default function StudioPage() {
             ) : (
               <div className="text-zinc-500">
                 <p className="text-4xl mb-3">🖼️</p>
-                <p className="font-medium text-zinc-300">Arraste o mockup aqui</p>
+                <p className="font-medium text-zinc-300">Arraste o mockup aqui para visualizar</p>
                 <p className="text-sm mt-1">ou clique para selecionar</p>
                 <p className="text-xs mt-3 text-zinc-600">PNG, JPG ou WEBP</p>
               </div>
@@ -86,7 +62,7 @@ export default function StudioPage() {
           {/* Campos */}
           <div className="flex flex-col gap-3">
             <div>
-              <label className="text-xs text-zinc-400 mb-1 block">Nome da estampa</label>
+              <label className="text-xs text-zinc-400 mb-1 block">Nome da estampa (opcional)</label>
               <input
                 type="text"
                 placeholder="Ex: Copa 2026 - Bandeira"
@@ -108,47 +84,47 @@ export default function StudioPage() {
                 <option value="body infantil">Body Infantil</option>
               </select>
             </div>
-            <button
-              onClick={handleAnalyze}
-              disabled={!image || loading}
-              className="bg-white text-zinc-950 font-semibold py-2.5 rounded-lg text-sm hover:bg-zinc-200 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {loading ? "Analisando..." : "✨ Gerar copies com Claude"}
-            </button>
           </div>
         </div>
 
-        {/* Resultado */}
-        <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-6 min-h-[400px]">
-          <h3 className="text-sm font-semibold text-zinc-400 mb-4">Sugestões do Claude</h3>
-          {!result && !loading && (
-            <div className="flex flex-col items-center justify-center h-64 text-zinc-600 text-sm text-center">
-              <p className="text-3xl mb-3">🤖</p>
-              <p>Envie um mockup e clique em</p>
-              <p>"Gerar copies" para começar</p>
+        {/* Instrucoes Claude Code */}
+        <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-6 flex flex-col gap-5">
+          <div>
+            <h3 className="text-sm font-semibold text-zinc-300 mb-1">Como gerar copies</h3>
+            <p className="text-xs text-zinc-500">
+              O Claude Code analisa diretamente — sem custo de API
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <div className="flex items-start gap-3">
+              <span className="text-zinc-500 font-mono text-xs mt-0.5">1</span>
+              <p className="text-sm text-zinc-300">
+                Salve o mockup na pasta <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs text-zinc-200">mockups/</code> na raiz do projeto
+              </p>
             </div>
-          )}
-          {loading && (
-            <div className="flex flex-col items-center justify-center h-64 text-zinc-400 text-sm">
-              <div className="w-6 h-6 border-2 border-zinc-600 border-t-white rounded-full animate-spin mb-3" />
-              <p>Claude está analisando sua estampa...</p>
+            <div className="flex items-start gap-3">
+              <span className="text-zinc-500 font-mono text-xs mt-0.5">2</span>
+              <p className="text-sm text-zinc-300">
+                Abra o terminal com Claude Code rodando
+              </p>
             </div>
-          )}
-          {result && (
-            <div className="text-sm text-zinc-300 space-y-1.5 overflow-y-auto max-h-[480px]">
-              {linhas.map((linha, i) => {
-                if (linha.startsWith("**") || linha.startsWith("##")) {
-                  return (
-                    <p key={i} className="font-bold text-white mt-4 first:mt-0">
-                      {linha.replace(/\*\*/g, "").replace(/^##\s*/, "")}
-                    </p>
-                  );
-                }
-                if (linha.trim() === "") return <div key={i} className="h-2" />;
-                return <p key={i}>{linha}</p>;
-              })}
+            <div className="flex items-start gap-3">
+              <span className="text-zinc-500 font-mono text-xs mt-0.5">3</span>
+              <p className="text-sm text-zinc-300">
+                Cole o texto abaixo no chat do Claude
+              </p>
             </div>
-          )}
+          </div>
+
+          <div className="bg-zinc-950 border border-zinc-700 rounded-lg p-4">
+            <p className="text-xs text-zinc-500 mb-2 font-medium">COPIE E COLE NO CLAUDE CODE:</p>
+            <p className="text-sm text-zinc-200 leading-relaxed whitespace-pre-wrap">{instrucao}</p>
+          </div>
+
+          <p className="text-xs text-zinc-600">
+            Dica: salve os mockups em subpastas por linha — <code className="bg-zinc-800 px-1 rounded">mockups/copa-2026/</code>, <code className="bg-zinc-800 px-1 rounded">mockups/brasil/</code> etc.
+          </p>
         </div>
       </div>
     </div>
