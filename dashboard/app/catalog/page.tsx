@@ -42,7 +42,7 @@ export default function CatalogPage() {
               <div className="flex flex-col gap-2">
                 {stamp.products.map((product) => (
                   <div
-                    key={product.sku}
+                    key={product.type}
                     className="flex items-center justify-between py-2 border-b border-zinc-800 last:border-0"
                   >
                     <div className="flex items-center gap-2">
@@ -52,7 +52,6 @@ export default function CatalogPage() {
                          product.type === "Cropped" ? "✂️" : "👶"}
                       </span>
                       <span className="text-sm text-zinc-300">{product.type}</span>
-                      <span className="text-xs text-zinc-600">{product.sku}</span>
                     </div>
                     <span
                       className={`text-xs px-2 py-0.5 rounded-full ${

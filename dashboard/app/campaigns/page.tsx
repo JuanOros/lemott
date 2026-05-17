@@ -65,7 +65,7 @@ meta ads adset create \\
     lines.push(`# PASSO 3 - Criar um criativo e um anuncio para cada estampa`);
 
     activeStamps.forEach((stamp, i) => {
-      const mockupPath = `./mockups/${stamp.mockupFile}`;
+      const mockupPath = stamp.mockupFile;
       lines.push(`
 # Estampa ${i + 1}: ${stamp.name}${stamp.customMockup ? " (mockup proprio)" : " (mockup padrao)"}
 meta ads creative create \\

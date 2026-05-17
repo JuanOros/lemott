@@ -77,58 +77,68 @@ export const mockCampaigns = [
   { id: "c5", name: "Estampa - Vuvuzela FC", status: "ACTIVE", objective: "OUTCOME_SALES" },
 ];
 
+const BASE_MOCKUP = "/home/juan/Desktop/LeMotts/MOCKUP INSTAGRAM";
+
+const DEFAULT_PRODUCTS = [
+  { type: "Camiseta" },
+  { type: "Moletom" },
+  { type: "Cropped" },
+  { type: "Body Infantil" },
+];
+
+const ALL_STAMPS = [
+  // PETS NA COPA
+  { name: "Pets na Copa - Arara Azul",   mockupFile: `${BASE_MOCKUP}/PETS NA COPA/AraraAzul.jpg` },
+  { name: "Pets na Copa - Betta",        mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Betta.jpg` },
+  { name: "Pets na Copa - Bulldog",      mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Bulldog.jpg` },
+  { name: "Pets na Copa - Calopsita",    mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Calopsita.jpg` },
+  { name: "Pets na Copa - Gato Filhote", mockupFile: `${BASE_MOCKUP}/PETS NA COPA/GatoFilhote.jpg` },
+  { name: "Pets na Copa - Gato Preto",   mockupFile: `${BASE_MOCKUP}/PETS NA COPA/GatoPreto.jpg` },
+  { name: "Pets na Copa - Golden",       mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Goldesn.jpg` },
+  { name: "Pets na Copa - Kinguio",      mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Kinguio.jpg` },
+  { name: "Pets na Copa - Labrador",     mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Labrador.jpg` },
+  { name: "Pets na Copa - Pinscher",     mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Pinscher.jpg` },
+  { name: "Pets na Copa - Poodle",       mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Poodle.jpg` },
+  { name: "Pets na Copa - Shih Tzu",     mockupFile: `${BASE_MOCKUP}/PETS NA COPA/ShihTzu.jpg` },
+  { name: "Pets na Copa - Spitz",        mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Spitz.jpg` },
+  { name: "Pets na Copa - Yorkshire",    mockupFile: `${BASE_MOCKUP}/PETS NA COPA/Yorkshire.jpg` },
+  // RITMO COPA
+  { name: "Ritmo Copa 1",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/1.png` },
+  { name: "Ritmo Copa 2",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/2.jpg` },
+  { name: "Ritmo Copa 3",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/3.jpg` },
+  { name: "Ritmo Copa 4",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/4.png` },
+  { name: "Ritmo Copa 5",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/5.png` },
+  { name: "Ritmo Copa 6",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/6.png` },
+  { name: "Ritmo Copa 7",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/7.png` },
+  { name: "Ritmo Copa 8",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/8.png` },
+  { name: "Ritmo Copa 9",  mockupFile: `${BASE_MOCKUP}/RITMO COPA/9.png` },
+  { name: "Ritmo Copa 10", mockupFile: `${BASE_MOCKUP}/RITMO COPA/10.png` },
+  { name: "Ritmo Copa 11", mockupFile: `${BASE_MOCKUP}/RITMO COPA/11.png` },
+  { name: "Ritmo Copa 12", mockupFile: `${BASE_MOCKUP}/RITMO COPA/12.jpg` },
+  // SELEÇÃO
+  { name: "Seleção 1",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/1.png` },
+  { name: "Seleção 2",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/2.png` },
+  { name: "Seleção 3",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/3.jpg` },
+  { name: "Seleção 4",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/4.png` },
+  { name: "Seleção 5",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/5.png` },
+  { name: "Seleção 6",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/6.png` },
+  { name: "Seleção 7",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/7.png` },
+  { name: "Seleção 8",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/8.jpg` },
+  { name: "Seleção 9",  mockupFile: `${BASE_MOCKUP}/SELEÇÃO/9.png` },
+  { name: "Seleção 10", mockupFile: `${BASE_MOCKUP}/SELEÇÃO/10.jpg` },
+  // IDENTIDADE
+  { name: "Identidade 2", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/2.jpg` },
+  { name: "Identidade 3", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/3.png` },
+  { name: "Identidade 4", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/4.jpg` },
+  { name: "Identidade 5", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/5.jpg` },
+  { name: "Identidade 6", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/6.jpg` },
+  { name: "Identidade 7", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/7.jpg` },
+  { name: "Identidade 8", mockupFile: `${BASE_MOCKUP}/IDENTIDADE/8.jpg` },
+].map((s) => ({ ...s, customMockup: true, products: DEFAULT_PRODUCTS }));
+
 export const mockCategories = [
-  {
-    name: "Copa do Mundo",
-    stamps: [
-      {
-        name: "Copa 2026 - Bandeira",
-        customMockup: true,
-        mockupFile: "copa_2026_bandeira.jpg",
-        products: [
-          { type: "Camiseta", sku: "CAM-COPA-001" },
-          { type: "Moletom", sku: "MOL-COPA-001" },
-          { type: "Cropped", sku: "CRP-COPA-001" },
-          { type: "Body Infantil", sku: "BOD-COPA-001" },
-        ],
-      },
-      {
-        name: "Vuvuzela FC",
-        customMockup: false,
-        mockupFile: "vuvuzela_fc.jpg",
-        products: [
-          { type: "Camiseta", sku: "CAM-VUV-001" },
-          { type: "Moletom", sku: "MOL-VUV-001" },
-        ],
-      },
-      {
-        name: "Dias de Jogo",
-        customMockup: true,
-        mockupFile: "dias_de_jogo.jpg",
-        products: [
-          { type: "Camiseta", sku: "CAM-DIA-001" },
-          { type: "Moletom", sku: "MOL-DIA-001" },
-          { type: "Cropped", sku: "CRP-DIA-001" },
-          { type: "Body Infantil", sku: "BOD-DIA-001" },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Humor / Cotidiano",
-    stamps: [
-      {
-        name: "Resenha no Bar",
-        customMockup: true,
-        mockupFile: "resenha_no_bar.jpg",
-        products: [
-          { type: "Camiseta", sku: "CAM-RES-001" },
-          { type: "Moletom", sku: "MOL-RES-001" },
-          { type: "Cropped", sku: "CRP-RES-001" },
-        ],
-      },
-    ],
-  },
+  { name: "Copa do Mundo", stamps: ALL_STAMPS },
+  { name: "Brasil",        stamps: ALL_STAMPS },
 ];
 
 export const mockCatalog = mockCategories.flatMap((cat) =>
