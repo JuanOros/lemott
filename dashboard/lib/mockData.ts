@@ -77,41 +77,66 @@ export const mockCampaigns = [
   { id: "c5", name: "Estampa - Vuvuzela FC", status: "ACTIVE", objective: "OUTCOME_SALES" },
 ];
 
-export const mockCatalog = [
+export const mockCategories = [
   {
-    stamp: "Copa 2026 - Bandeira",
-    products: [
-      { type: "Camiseta", sku: "CAM-COPA-001", customMockup: true },
-      { type: "Moletom", sku: "MOL-COPA-001", customMockup: false },
-      { type: "Cropped", sku: "CRP-COPA-001", customMockup: false },
-      { type: "Body Infantil", sku: "BOD-COPA-001", customMockup: false },
+    name: "Copa do Mundo",
+    stamps: [
+      {
+        name: "Copa 2026 - Bandeira",
+        customMockup: true,
+        mockupFile: "copa_2026_bandeira.jpg",
+        products: [
+          { type: "Camiseta", sku: "CAM-COPA-001" },
+          { type: "Moletom", sku: "MOL-COPA-001" },
+          { type: "Cropped", sku: "CRP-COPA-001" },
+          { type: "Body Infantil", sku: "BOD-COPA-001" },
+        ],
+      },
+      {
+        name: "Vuvuzela FC",
+        customMockup: false,
+        mockupFile: "vuvuzela_fc.jpg",
+        products: [
+          { type: "Camiseta", sku: "CAM-VUV-001" },
+          { type: "Moletom", sku: "MOL-VUV-001" },
+        ],
+      },
+      {
+        name: "Dias de Jogo",
+        customMockup: true,
+        mockupFile: "dias_de_jogo.jpg",
+        products: [
+          { type: "Camiseta", sku: "CAM-DIA-001" },
+          { type: "Moletom", sku: "MOL-DIA-001" },
+          { type: "Cropped", sku: "CRP-DIA-001" },
+          { type: "Body Infantil", sku: "BOD-DIA-001" },
+        ],
+      },
     ],
   },
   {
-    stamp: "Resenha no Bar",
-    products: [
-      { type: "Camiseta", sku: "CAM-RES-001", customMockup: true },
-      { type: "Moletom", sku: "MOL-RES-001", customMockup: true },
-      { type: "Cropped", sku: "CRP-RES-001", customMockup: false },
-    ],
-  },
-  {
-    stamp: "Vuvuzela FC",
-    products: [
-      { type: "Camiseta", sku: "CAM-VUV-001", customMockup: false },
-      { type: "Moletom", sku: "MOL-VUV-001", customMockup: false },
-    ],
-  },
-  {
-    stamp: "Dias de Jogo",
-    products: [
-      { type: "Camiseta", sku: "CAM-DIA-001", customMockup: true },
-      { type: "Moletom", sku: "MOL-DIA-001", customMockup: true },
-      { type: "Cropped", sku: "CRP-DIA-001", customMockup: false },
-      { type: "Body Infantil", sku: "BOD-DIA-001", customMockup: false },
+    name: "Humor / Cotidiano",
+    stamps: [
+      {
+        name: "Resenha no Bar",
+        customMockup: true,
+        mockupFile: "resenha_no_bar.jpg",
+        products: [
+          { type: "Camiseta", sku: "CAM-RES-001" },
+          { type: "Moletom", sku: "MOL-RES-001" },
+          { type: "Cropped", sku: "CRP-RES-001" },
+        ],
+      },
     ],
   },
 ];
+
+export const mockCatalog = mockCategories.flatMap((cat) =>
+  cat.stamps.map((s) => ({
+    stamp: s.name,
+    products: s.products.map((p) => ({ ...p, customMockup: s.customMockup })),
+  }))
+);
 
 export const mockReport = {
   coletado_em: new Date().toISOString(),
