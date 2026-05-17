@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 .next/
 dashboard/.next/
+analysis/reports/

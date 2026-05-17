@@ -20,7 +20,7 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 def run_meta(args: list[str]) -> dict | list | None:
     """Roda um comando da Meta Ads CLI e retorna o resultado como JSON."""
-    cmd = ["meta", "ads"] + args + ["--output", "json"]
+    cmd = ["meta", "--output", "json", "ads"] + args
     env = os.environ.copy()
     env["ACCESS_TOKEN"] = ACCESS_TOKEN
     env["AD_ACCOUNT_ID"] = AD_ACCOUNT_ID
@@ -46,11 +46,12 @@ def coletar_dados() -> dict:
     campanhas = run_meta(["campaign", "list"]) or []
     conjuntos = run_meta(["adset", "list"]) or []
     anuncios = run_meta(["ad", "list"]) or []
-    insights = run_meta([
+    insights_raw = run_meta([
         "insights", "get",
         "--date-preset", "last_7d",
-        "--fields", "campaign_name,adset_name,ad_name,impressions,clicks,spend,ctr,cpc,conversions,cost_per_conversion,roas"
-    ]) or []
+        "--fields", "campaign_name,adset_name,ad_name,impressions,clicks,spend,ctr,cpc,actions,action_values,purchase_roas"
+    ]) or {}
+    insights = insights_raw.get("data", []) if isinstance(insights_raw, dict) else insights_raw
 
     return {
         "coletado_em": datetime.now().isoformat(),
@@ -142,8 +143,8 @@ def main():
         print(analise)
         print("=" * 60)
     else:
-        analise = "Sem chave Anthropic configurada — análise automática desativada."
-        print("\n" + analise)
+        analise = "Dados coletados. Abra o Claude Code e diga: analisa os dados de anuncios."
+        print("\n✅ Dados salvos. No Claude Code, diga: 'analisa os dados de anuncios'")
 
     salvar_relatorio(dados, analise)
 
